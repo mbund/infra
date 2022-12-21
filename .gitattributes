@@ -1,2 +1,3 @@
 *.yaml linguist-detectable=true
+/clusters/**/flux-system/gotk-*.yaml linguist-vendored
 *.sops.* diff=sopsdiffer
