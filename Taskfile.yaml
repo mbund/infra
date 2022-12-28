@@ -1,0 +1,22 @@
+version: '3'
+
+tasks:
+  kind:
+    desc: Create local kubernetes cluster
+    cmds:
+      - kind create cluster --config kind.yaml -n staging
+
+  flux-staging:
+    desc: Bootstrap fluxcd
+    cmds:
+      - flux bootstrap github --context=kind-staging --owner=mbund --repository=infra --personal --path=clusters/staging
+
+  kind-del:
+    desc: Delete local kubernetes cluster
+    cmds:
+      - kind delete cluster -n staging
+
+  flux-watch:
+    desc: Watch flux kustomizations
+    cmds:
+      - watch flux get kustomizations

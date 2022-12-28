@@ -18,6 +18,7 @@
             fluxcd
             kubectl
             kind
+            go-task
           ];
         };
     });
