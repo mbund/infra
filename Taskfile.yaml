@@ -1,22 +1,22 @@
-version: '3'
+---
+version: "3"
+
+vars:
+  PROJECT_DIR:
+    sh: "git rev-parse --show-toplevel"
+  KUBERNETES_DIR: "{{.PROJECT_DIR}}/kubernetes"
+
+dotenv: [".config.env"]
+
+env:
+  KUBECONFIG: "{{.PROJECT_DIR}}/kubeconfig"
+
+includes:
+  cluster: .taskfiles/ClusterTasks.yml
 
 tasks:
-  kind:
-    desc: Create local kubernetes cluster
-    cmds:
-      - kind create cluster --config kind.yaml -n staging
 
-  flux-staging:
-    desc: Bootstrap fluxcd
+  configure:
+    desc: Configure repository from env settings
     cmds:
-      - flux bootstrap github --context=kind-staging --owner=mbund --repository=infra --personal --path=clusters/staging
-
-  kind-del:
-    desc: Delete local kubernetes cluster
-    cmds:
-      - kind delete cluster -n staging
-
-  flux-watch:
-    desc: Watch flux kustomizations
-    cmds:
-      - watch flux get kustomizations
+      - ./configure
