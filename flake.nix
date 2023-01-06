@@ -29,6 +29,7 @@
             k3sup
             envsubst
             openssl
+            apacheHttpd
           ];
         };
     });
