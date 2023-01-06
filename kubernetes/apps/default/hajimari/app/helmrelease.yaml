@@ -23,19 +23,56 @@ spec:
       retries: 3
   values:
     hajimari:
-      title: Apps
+      name: You
+      title: Homelab
+      lightTheme: gazette
       darkTheme: espresso
       alwaysTargetBlank: true
-      showGreeting: false
-      showAppGroups: false
-      showAppStatus: false
-      showBookmarkGroups: false
+      showGreeting: true
+      showAppGroups: true
+      showAppStatus: true
+      showBookmarkGroups: true
       showGlobalBookmarks: false
-      showAppUrls: false
+      showAppUrls: true
       defaultEnable: true
       namespaceSelector:
         matchNames:
           - default
+      defaultSearchProvider: Searxng
+      searchProviders:
+        - name: Searxng
+          token: s
+          icon: mdi:search
+          searchUrl: https://search.${SECRET_DOMAIN}/search?q={query}
+          url: https://search.${SECRET_DOMAIN}
+      customApps:
+        - group: Media
+          apps:
+            - name: Element
+              url: "https://app.element.io"
+              icon: simple-icons:element
+              info: Element/matrix webapp
+            - name: Discord
+              url: "https://discord.com/app"
+              icon: simple-icons:discord
+              info: Discord webapp
+      globalBookmarks:
+        - group: Media
+          bookmarks:
+            - name: YouTube
+              url: "https://youtube.com"
+            - name: Reddit
+              url: "http://reddit.com"
+            - name: Twitch
+              url: "http://twitch.tv"
+        - group: Dev
+          bookmarks:
+            - name: Codepen
+              url: "https://codepen.io"
+            - name: Devdocs
+              url: "https://devdocs.io"
+            - name: Devhints
+              url: "https://devhints.io"
     ingress:
       main:
         enabled: true
