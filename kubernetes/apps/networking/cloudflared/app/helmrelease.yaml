@@ -23,6 +23,9 @@ spec:
     remediation:
       retries: 3
   values:
+    image:
+      repository: raspbernetes/cloudflared
+      tag: "2022.8.2"
     cloudflared:
       tunnelID: "${SECRET_CLOUDFLARE_TUNNEL_ID}"
       existingSecret: cloudflared-secret
