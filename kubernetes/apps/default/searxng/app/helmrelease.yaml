@@ -34,9 +34,10 @@ spec:
         enabled: true
         ingressClassName: nginx
         annotations:
-          cert-manager.io/cluster-issuer: letsencrypt-staging
-          external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+          external-dns.alpha.kubernetes.io/target: "${SECRET_CLOUDFLARE_TUNNEL_ID}.cfargotunnel.com"
+          external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
           external-dns.home.arpa/enabled: "true"
+          cert-manager.io/cluster-issuer: letsencrypt-staging
           hajimari.io/icon: mdi:search
         hosts:
           - host: &host "searxng.${SECRET_DOMAIN}"

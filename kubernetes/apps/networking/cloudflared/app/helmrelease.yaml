@@ -9,10 +9,10 @@ spec:
   chart:
     spec:
       chart: cloudflared
-      version: 1.0.0
+      version: 0.1.2
       sourceRef:
         kind: HelmRepository
-        name: codechem
+        name: xunholy
         namespace: flux-system
       interval: 15m
   install:
@@ -25,10 +25,7 @@ spec:
   values:
     cloudflared:
       tunnelID: "${SECRET_CLOUDFLARE_TUNNEL_ID}"
-      auth:
-        tunnelName: "${SECRET_CLOUDFLARE_TUNNEL_NAME}"
-        accountTag: "${SECRET_CLOUDFLARE_TUNNEL_ACCOUNT_TAG}"
-        tunnelSecret: "${SECRET_CLOUDFLARE_TUNNEL_SECRET}"
+      existingSecret: cloudflared-secret
       ingress:
         - hostname: "*.${SECRET_DOMAIN}"
           service: https://ingress-nginx.networking.svc.cluster.local:443
