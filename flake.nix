@@ -30,6 +30,7 @@
             envsubst
             openssl
             apacheHttpd
+            jq
           ];
         };
     });

@@ -27,14 +27,6 @@ envsubst < "${PROJECT_DIR}/tmpl/kubernetes/cert-manager-secret.sops.yaml" \
     > "${PROJECT_DIR}/kubernetes/apps/cert-manager/cert-manager/issuers/secret.sops.yaml"
 sops --encrypt --in-place "${PROJECT_DIR}/kubernetes/apps/cert-manager/cert-manager/issuers/secret.sops.yaml"
 
-envsubst < "${PROJECT_DIR}/tmpl/kubernetes/cloudflare-ddns-secret.sops.yaml" \
-    > "${PROJECT_DIR}/kubernetes/apps/networking/cloudflare-ddns/app/secret.sops.yaml"
-sops --encrypt --in-place "${PROJECT_DIR}/kubernetes/apps/networking/cloudflare-ddns/app/secret.sops.yaml"
-
-envsubst < "${PROJECT_DIR}/tmpl/kubernetes/external-dns-secret.sops.yaml" \
-    > "${PROJECT_DIR}/kubernetes/apps/networking/external-dns/app/secret.sops.yaml"
-sops --encrypt --in-place "${PROJECT_DIR}/kubernetes/apps/networking/external-dns/app/secret.sops.yaml"
-
 envsubst < "${PROJECT_DIR}/tmpl/kubernetes/github-webhook-token-secret.sops.yaml" \
     > "${PROJECT_DIR}/kubernetes/apps/flux-system/addons/webhooks/github/secret.sops.yaml"
 sops --encrypt --in-place "${PROJECT_DIR}/kubernetes/apps/flux-system/addons/webhooks/github/secret.sops.yaml"
@@ -42,3 +34,7 @@ sops --encrypt --in-place "${PROJECT_DIR}/kubernetes/apps/flux-system/addons/web
 envsubst < "${PROJECT_DIR}/tmpl/kubernetes/weave-gitops-secret.sops.yaml" \
     > "${PROJECT_DIR}/kubernetes/apps/flux-system/weave-gitops/app/secret.sops.yaml"
 sops --encrypt --in-place "${PROJECT_DIR}/kubernetes/apps/flux-system/weave-gitops/app/secret.sops.yaml"
+
+envsubst < "${PROJECT_DIR}/tmpl/kubernetes/cloudflared-secret.sops.yaml" \
+    > "${PROJECT_DIR}/kubernetes/apps/networking/cloudflared/app/secret.sops.yaml"
+sops --encrypt --in-place "${PROJECT_DIR}/kubernetes/apps/networking/cloudflared/app/secret.sops.yaml"
