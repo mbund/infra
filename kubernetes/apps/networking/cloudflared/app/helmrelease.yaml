@@ -25,13 +25,13 @@ spec:
   values:
     image:
       repository: raspbernetes/cloudflared
-      tag: "2022.12.1"
+      tag: "2022.8.2"
     cloudflared:
       tunnelID: "${SECRET_CLOUDFLARE_TUNNEL_ID}"
       existingSecret: cloudflared-secret
       ingress:
         - hostname: "*.${SECRET_DOMAIN}"
-          service: https://ingress-nginx.networking
+          service: https://traefik.networking
           originRequest:
             noTLSVerify: true
         - service: http_status:404
