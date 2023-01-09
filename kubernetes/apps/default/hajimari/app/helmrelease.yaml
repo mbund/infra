@@ -73,6 +73,8 @@ spec:
               url: "https://devdocs.io"
             - name: Devhints
               url: "https://devhints.io"
+            - name: Carbon
+              url: "https://carbon.now.sh"
     ingress:
       main:
         enabled: true
