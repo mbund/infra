@@ -75,6 +75,8 @@ spec:
               url: "https://devhints.io"
             - name: Carbon
               url: "https://carbon.now.sh"
+            - name: Unicode Table
+              url: "https://unicode-table.com"
     ingress:
       main:
         enabled: true
