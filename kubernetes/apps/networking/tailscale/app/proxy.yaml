@@ -1,0 +1,32 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: contour-private
+  namespace: networking
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: contour
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami
+        namespace: flux-system
+  values:
+    contour:
+      # If you are using Contour for your public ingress as well,
+      # disable CRD management as the two deployments will fight
+      # over it otherwise. We don't like fights.
+      # Leave this enabled if this is your only Contour deployment - it
+      # defaults to `true`.
+      # manageCRDs: false
+      ingressClass:
+        name: private
+        default: true
+    envoy:
+      useHostPort: false
+      service:
+        type: ClusterIP
+        externalTrafficPolicy: ''
+        clusterIP: 10.43.0.60

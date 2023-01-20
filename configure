@@ -38,3 +38,7 @@ sops --encrypt --in-place "${PROJECT_DIR}/kubernetes/apps/flux-system/weave-gito
 envsubst < "${PROJECT_DIR}/tmpl/kubernetes/cloudflared-secret.sops.yaml" \
     > "${PROJECT_DIR}/kubernetes/apps/networking/cloudflared/app/secret.sops.yaml"
 sops --encrypt --in-place "${PROJECT_DIR}/kubernetes/apps/networking/cloudflared/app/secret.sops.yaml"
+
+envsubst < "${PROJECT_DIR}/tmpl/kubernetes/tailscale-secret.sops.yaml" \
+    > "${PROJECT_DIR}/kubernetes/apps/networking/tailscale/app/secret.sops.yaml"
+sops --encrypt --in-place "${PROJECT_DIR}/kubernetes/apps/networking/tailscale/app/secret.sops.yaml"
