@@ -1,48 +1,37 @@
----
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
-kind: HelmRelease
+apiVersion: v1
+kind: Pod
 metadata:
-  name: contour-private
+  name: nginx
   namespace: networking
 spec:
   serviceAccountName: tailscale
-  interval: 5m
-  chart:
-    spec:
-      chart: contour
-      sourceRef:
-        kind: HelmRepository
-        name: bitnami
-        namespace: flux-system
-      version: 10.0.0
-  values:
-    contour:
-      manageCRDs: true
-      ingressClass:
-        name: private
-        default: false
-    envoy:
-      useHostPort: false
-      service:
-        type: ClusterIP
-        externalTrafficPolicy: ''
-        clusterIP: 10.43.0.60
-      sidecars:
-      - name: ts-sidecar
-        imagePullPolicy: Always
-        image: "ghcr.io/tailscale/tailscale:latest"
-        env:
-        - name: TS_KUBE_SECRET
-          value: tailscale-auth
-        - name: TS_USERSPACE
-          value: "false"
-        - name: TS_AUTH_KEY
-          valueFrom:
-            secretKeyRef:
-              name: tailscale-secret
-              key: auth-key
-              optional: true
-        securityContext:
-          capabilities:
-            add:
-            - NET_ADMIN
+  containers:
+  - name: nginx
+    image: nginx
+    resources:
+      limits:
+        cpu: 500m
+        memory: 500Mi
+  - name: ts-sidecar
+    imagePullPolicy: Always
+    image: "ghcr.io/tailscale/tailscale:latest"
+    env:
+    - name: TS_KUBE_SECRET
+      value: tailscale-auth
+    - name: TS_USERSPACE
+      value: "false"
+    - name: TS_AUTH_KEY
+      valueFrom:
+        secretKeyRef:
+          name: tailscale-secret
+          key: auth-key
+          optional: true
+    securityContext:
+      capabilities:
+        add:
+        - NET_ADMIN
+
+    resources:
+      limits:
+        cpu: 500m
+        memory: 500Mi
