@@ -6,4 +6,3 @@ resources:
   - ./proxy.yaml
   - ./secret.sops.yaml
   - ./ts-rbac.yaml
-  - ./depl.yaml

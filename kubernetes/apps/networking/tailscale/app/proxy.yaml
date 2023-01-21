@@ -5,6 +5,7 @@ metadata:
   name: contour-private
   namespace: networking
 spec:
+  serviceAccountName: tailscale
   interval: 5m
   chart:
     spec:
@@ -13,20 +14,35 @@ spec:
         kind: HelmRepository
         name: bitnami
         namespace: flux-system
+      version: 10.0.0
   values:
     contour:
-      # If you are using Contour for your public ingress as well,
-      # disable CRD management as the two deployments will fight
-      # over it otherwise. We don't like fights.
-      # Leave this enabled if this is your only Contour deployment - it
-      # defaults to `true`.
-      # manageCRDs: false
+      manageCRDs: true
       ingressClass:
         name: private
-        default: true
+        default: false
     envoy:
       useHostPort: false
       service:
         type: ClusterIP
         externalTrafficPolicy: ''
         clusterIP: 10.43.0.60
+      sidecars:
+      - name: ts-sidecar
+        imagePullPolicy: Always
+        image: "ghcr.io/tailscale/tailscale:latest"
+        env:
+        - name: TS_KUBE_SECRET
+          value: tailscale-auth
+        - name: TS_USERSPACE
+          value: "false"
+        - name: TS_AUTH_KEY
+          valueFrom:
+            secretKeyRef:
+              name: tailscale-secret
+              key: auth-key
+              optional: true
+        securityContext:
+          capabilities:
+            add:
+            - NET_ADMIN
