@@ -18,9 +18,8 @@ tasks:
     desc: Install Flux into your cluster
     deps: [secrets]
     cmds:
-      - kubectl apply --kustomize ./bootstrap
       - flux bootstrap github --owner=mbund --repository=infra --personal --path=flux
-      - kubectl -n flux-system create secret generic sops-age --from-file=age.agekey={{.SOPS_AGE_KEY_FILE}}
+      - cat {{.SOPS_AGE_KEY_FILE}} | kubectl -n flux-system create secret generic sops-age --from-file=age.agekey=/dev/stdin
       - task: reconcile
 
     preconditions:
