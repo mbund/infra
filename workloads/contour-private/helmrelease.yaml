@@ -15,13 +15,11 @@ spec:
         kind: HelmRepository
         name: bitnami
         namespace: flux-system
-      version: 10.0.0
+      version: 10.1.3
 
   values:
     contour:
-      # We are deploying Contour twice - having both deployments manage the CRDs
-      # fails. We will let the `contour-public` deployment handle these.
-      manageCRDs: false
+      manageCRDs: true
       ingressClass:
         name: private
         default: true
