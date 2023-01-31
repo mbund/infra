@@ -23,4 +23,3 @@ spec:
   retryInterval: 2m
   prune: true
   wait: true
- 

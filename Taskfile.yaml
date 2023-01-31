@@ -7,7 +7,6 @@ env:
   KUBECONFIG: "./kubeconfig"
 
 tasks:
-
   verify:
     desc: Verify flux meets the prerequisites
     cmds:
