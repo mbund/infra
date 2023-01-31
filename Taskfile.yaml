@@ -1,22 +1,62 @@
 ---
 version: "3"
 
-vars:
-  PROJECT_DIR:
-    sh: "git rev-parse --show-toplevel"
-  KUBERNETES_DIR: "{{.PROJECT_DIR}}/kubernetes"
-
 dotenv: [".config.env"]
 
 env:
-  KUBECONFIG: "{{.PROJECT_DIR}}/kubeconfig"
-
-includes:
-  cluster: .taskfiles/ClusterTasks.yml
+  KUBECONFIG: "./kubeconfig"
 
 tasks:
 
-  configure:
-    desc: Configure repository from env settings
+  verify:
+    desc: Verify flux meets the prerequisites
     cmds:
-      - ./configure
+      - flux check --pre
+
+  install:
+    run: once
+    desc: Install Flux into your cluster
+    deps: [secrets]
+    cmds:
+      - kubectl apply --kustomize ./bootstrap
+      - flux bootstrap github --owner=mbund --repository=infra --personal --path=flux
+      - kubectl -n flux-system create secret generic sops-age --from-file=age.agekey={{.SOPS_AGE_KEY_FILE}}
+      - task: reconcile
+
+    preconditions:
+      - sh: test -f {{.SOPS_AGE_KEY_FILE}}
+        msg: |
+          Age key file is not found. Did you forget to create it?
+    vars:
+      SOPS_AGE_KEY_FILE: ~/.config/sops/age/keys.txt
+
+  reconcile:
+    desc: Force update Flux to pull in changes from your Git repository
+    deps: [secrets]
+    cmds:
+      - flux reconcile -n flux-system kustomization cluster
+
+  secrets:
+    cmds:
+      - silent: true
+        cmd: |
+          set -e
+          source {{.CONFIG_ENV_FILE}}
+          for template in $(fd --no-ignore --type file '^.*secret.yaml.tmpl'); do
+            if [[ ! -f .task/cache/$template.hash ]]; then
+              mkdir -p $(dirname .task/cache/$template.hash)
+              echo "" > .task/cache/$template.hash
+            fi
+
+            if [[ $(cat .task/cache/$template.hash) != $(gomplate -f $template | sha256sum) ]]; then
+              gomplate -f $template | sha256sum > .task/cache/$template.hash
+              gomplate -f $template | sops --age $AGE_PUBLIC_KEY --encrypted-regex '^(data|stringData)$' --input-type yaml --output-type yaml --encrypt /dev/stdin > $(echo $template | sd '.tmpl' '')
+              echo "Rekeying $template -> $(echo $template | sd '.tmpl' '')"
+            fi
+          done
+    preconditions:
+      - sh: test -f {{.CONFIG_ENV_FILE}}
+        msg: |
+          Config file {{.CONFIG_ENV_FILE}} not found. Did you forget to create it?
+    vars:
+      CONFIG_ENV_FILE: .config.env

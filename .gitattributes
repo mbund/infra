@@ -1,3 +1,4 @@
 *.yaml linguist-detectable=true
+*.yaml.tmpl linguist-language=YAML
 **/flux-system/gotk-*.yaml linguist-vendored
 *.sops.* diff=sopsdiffer

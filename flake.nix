@@ -22,15 +22,17 @@
           packages = with pkgs; [
             fluxcd
             kubectl
-            kind
             go-task
+            gomplate
+            fd
+            sd
             cloudflared
             sops
             k3sup
-            envsubst
             openssl
             apacheHttpd
             jq
+            yq
           ];
         };
     });
