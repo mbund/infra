@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Namespace
 
 metadata:
-  name: contour-private
+  name: traefik
   labels:
     pod-security.kubernetes.io/enforce: privileged
 ---
@@ -10,14 +10,14 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 
 metadata:
-  name: contour-private
+  name: traefik
   namespace: flux-system
 
 spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: "./workloads/contour-private"
+  path: "./workloads/traefik"
   interval: 60m
   timeout: 3m
   retryInterval: 2m
