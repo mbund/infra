@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Namespace
+
+metadata:
+  name: weave-gitops
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+
+metadata:
+  name: weave-gitops
+  namespace: flux-system
+
+spec:
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: "./workloads/weave-gitops"
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  interval: 60m
+  wait: true
+  timeout: 3m
+  retryInterval: 2m
+  prune: true
