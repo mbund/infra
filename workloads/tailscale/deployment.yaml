@@ -52,7 +52,7 @@ spec:
             - name: TS_KUBE_SECRET
               value: tailscale-config
             - name: TS_DEST_IP
-              value: 10.43.0.61
+              value: 10.43.193.61 # 10.43.0.61
             - name: TS_EXTRA_ARGS
               value: --hostname=cluster
 

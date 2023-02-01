@@ -23,6 +23,7 @@ spec:
       ingressClass:
         name: private
         default: true
+
     envoy:
       useHostPort: false
       service:
