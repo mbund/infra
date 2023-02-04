@@ -1,0 +1,46 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+
+metadata:
+  name: searxng
+  namespace: searxng
+
+spec:
+  interval: 15m
+
+  chart:
+    spec:
+      chart: searxng
+      sourceRef:
+        kind: HelmRepository
+        name: searxng
+        namespace: flux-system
+
+  values:
+    searxng:
+      config:
+        general:
+          instance_name: "Search"
+        server:
+          method: "GET"
+        search:
+          autocomplete: "google"
+    ingress:
+      main:
+        enabled: false
+        ingressClassName: traefik
+        annotations:
+          hajimari.io/icon: mdi:search
+    service:
+      main:
+        annotations:
+          tailscale.com/expose: "true"
+        ports:
+          http:
+            port: 80
+    resources:
+      requests:
+        cpu: 5m
+        memory: 10Mi
+      limits:
+        memory: 50Mi
