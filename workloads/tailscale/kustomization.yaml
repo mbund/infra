@@ -1,6 +1,3 @@
 resources:
-  - tailscale-config.secret.yaml
-  - serviceaccount.yaml
-  - role.yaml
-  - rolebinding.yaml
-  - deployment.yaml
+  - operator-oauth.secret.yaml
+  - operator.yaml
