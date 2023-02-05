@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://camo.githubusercontent.com/5b298bf6b0596795602bd771c5bddbb963e83e0f/68747470733a2f2f692e696d6775722e636f6d2f7031527a586a512e706e67" align="center" width="144px" height="144px"/>
+<img src="https://avatars.githubusercontent.com/u/61287648" align="center" width="144px" height="144px"/>
 
 ### Homelab Kubernetes infrastructure :sailboat:
 
@@ -16,8 +16,8 @@
         <td><a href="https://proxmox.com">Proxmox</a></td>
         <td>Virtualization platform</td>
     </tr> <tr>
-        <td><img src="https://avatars.githubusercontent.com/u/61287648" width="48">
-        <td><a href="https://getfedora.org/server">Fedora Server</a></td>
+        <td><img src="https://assets.ubuntu.com/v1/d639b982-canonical-brand-tile.png" width="48">
+        <td><a href="https://ubuntu.com/download/server">Ubuntu Server</a></td>
         <td>Base OS for Kubernetes nodes</td>
     </tr> <tr>
         <td><img src="https://raw.githubusercontent.com/loganmarchione/homelab-svg-assets/main/assets/k3s.svg" width="48">
@@ -52,6 +52,10 @@
         <td><a href="https://traefik.io">Traefik</a></td>
         <td>Kubernetes ingress controller</td>
     </tr> <tr>
+        <td><img src="https://raw.githubusercontent.com/loganmarchione/homelab-svg-assets/main/assets/tailscale.svg" width="48">
+        <td><a href="https://tailscale.com/">Tailscale</a></td>
+        <td>Mesh VPN</td>
+    </tr> <tr>
         <td><img src="https://raw.githubusercontent.com/kubernetes-sigs/external-dns/master/docs/img/external-dns.png" width="48">
         <td><a href="https://github.com/kubernetes-sigs/external-dns">ExternalDNS</a></td>
         <td>Synchronize Kubernetes services with DNS</td>
@@ -79,3 +83,9 @@ sudo iptables -A FORWARD --in-interface tailscale0 -j ACCEPT
 sudo iptables -A FORWARD --out-interface tailscale0 -j ACCEPT
 sudo iptables -t nat -A POSTROUTING --source 100.64.0.0/10 --out-interface wlan0 -j MASQUERADE
 ```
+
+## todo
+
+https://traefik.io/blog/exploring-the-tailscale-traefik-proxy-integration
+
+a lot
