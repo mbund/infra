@@ -76,11 +76,11 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: private
+        ingressClassName: traefik
         annotations:
           hajimari.io/icon: weather-sunset
         hosts:
-          - host: &host "start.lab" # contour-private-contour-private-envoy.tail22829.ts.net
+          - host: &host "start.traefik.tail22829.ts.net" # contour-private-contour-private-envoy.tail22829.ts.net
             paths:
               - path: /
                 pathType: Prefix
