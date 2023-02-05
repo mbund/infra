@@ -84,10 +84,10 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
-        tls:
-          - hosts:
-              - *host
-            secretName: hajimari-tls
+        # tls:
+        #   - hosts:
+        #       - *host
+        #     secretName: hajimari-tls
     podAnnotations:
       configmap.reloader.stakater.com/reload: hajimari-settings
     persistence:
