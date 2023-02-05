@@ -18,24 +18,24 @@ spec:
       version: 20.8.0
 
   values:
+    image:
+      # version 3 is in pre-release and has the feature we need
+      tag: v3.0.0-beta2
     service:
-      annotations:
-        tailscale.com/expose: "true"
-        tailscale.com/hostname: "traefik"
+      spec:
+        loadBalancerClass: tailscale
     globalArguments:
       - "--serverstransport.insecureskipverify=true"
-      - "--providers.kubernetesingress.ingressclass=traefik"
+      - "--certificatesresolvers.myresolver.tailscale=true"
     ports:
       web:
         redirectTo: websecure
       websecure:
-        http3:
-          enabled: true
         tls:
           enabled: true
           options: "default"
     providers:
       kubernetesCRD:
-        ingressClass: traefik-private
+        ingressClass: private
         allowCrossNamespace: true
         allowExternalNameServices: true
