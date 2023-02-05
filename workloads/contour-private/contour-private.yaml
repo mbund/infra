@@ -27,6 +27,6 @@ spec:
       useHostPort: false
       service:
         annotations:
-          tailscale.com/hostname: "homelab"
+          tailscale.com/hostname: "lab"
         type: LoadBalancer
         loadBalancerClass: tailscale
