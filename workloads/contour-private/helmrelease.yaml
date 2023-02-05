@@ -24,8 +24,9 @@ spec:
         name: private
         default: true
     envoy:
-      # useHostPort: false
+      useHostPort: false
       service:
+        type: LoadBalancer
+        loadBalancerClass: tailscale
         annotations:
-          tailscale.com/expose: "true"
           tailscale.com/hostname: "homelab"

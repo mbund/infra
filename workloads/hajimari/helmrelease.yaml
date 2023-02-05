@@ -73,22 +73,6 @@ spec:
               url: "https://carbon.now.sh"
             - name: Unicode Table
               url: "https://unicode-table.com"
-    ingress:
-      main:
-        enabled: true
-        # ingressClassName: traefik
-        annotations:
-          cert-manager.io/cluster-issuer: letsencrypt-staging
-          hajimari.io/icon: weather-sunset
-        hosts:
-          - host: &host "hajimari.tail22829.ts.net" # contour-private-contour-private-envoy.tail22829.ts.net
-            paths:
-              - path: /
-                pathType: Prefix
-        tls:
-          - hosts:
-              - *host
-            secretName: hajimari-tls
     service:
       main:
         annotations:

@@ -33,10 +33,9 @@ spec:
         enabled: true
         ingressClassName: private
         annotations:
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           hajimari.io/icon: video-input-antenna
         hosts:
-          - host: "echo-server.traefik"
+          - host: "abc.mbund.org"
             paths:
               - path: /
                 pathType: Prefix
