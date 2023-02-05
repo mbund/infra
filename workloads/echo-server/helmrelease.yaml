@@ -31,7 +31,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: traefik-private
+        ingressClassName: private
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           hajimari.io/icon: video-input-antenna
