@@ -19,8 +19,6 @@ spec:
 
   values:
     service:
-      enabled: true
-      type: LoadBalancer
       annotations:
         tailscale.com/expose: "true"
         tailscale.com/hostname: "traefik"
