@@ -22,3 +22,20 @@ spec:
       annotations:
         tailscale.com/expose: "true"
         tailscale.com/hostname: "traefik"
+    globalArguments:
+      - "--serverstransport.insecureskipverify=true"
+      - "--providers.kubernetesingress.ingressclass=traefik"
+    ports:
+      web:
+        redirectTo: websecure
+      websecure:
+        http3:
+          enabled: true
+        tls:
+          enabled: true
+          options: "default"
+    providers:
+      kubernetesCRD:
+        ingressClass: traefik-private
+        allowCrossNamespace: true
+        allowExternalNameServices: true

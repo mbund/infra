@@ -27,10 +27,10 @@ spec:
           autocomplete: "google"
     ingress:
       main:
-        enabled: false
-        ingressClassName: traefik
+        enabled: true
+        ingressClassName: traefik-private
         annotations:
-          # traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           # cert-manager.io/cluster-issuer: letsencrypt-staging
           hajimari.io/icon: mdi:search
         hosts:
