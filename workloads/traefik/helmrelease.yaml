@@ -21,9 +21,9 @@ spec:
     image:
       # version 3 is in pre-release and has the feature we need
       tag: v3.0.0-beta2
-    service:
-      spec:
-        loadBalancerClass: tailscale
+    # service:
+    #   spec:
+    #     loadBalancerClass: tailscale
     globalArguments:
       - "--serverstransport.insecureskipverify=true"
       - "--certificatesresolvers.myresolver.tailscale=true"
@@ -34,6 +34,9 @@ spec:
         tls:
           enabled: true
           options: "default"
+          certResolver: "myresolver"
+          # domains:
+          #   - main: "*.private.tail22829.ts.net"
     providers:
       kubernetesCRD:
         ingressClass: private

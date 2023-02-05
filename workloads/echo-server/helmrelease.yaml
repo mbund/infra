@@ -33,15 +33,16 @@ spec:
         enabled: true
         ingressClassName: private
         annotations:
+          traefik.ingress.kubernetes.io/router.tls: "true"
+          traefik.ingress.kubernetes.io/router.tls.certresolver: "myresolver"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           hajimari.io/icon: video-input-antenna
         hosts:
-          - host: &host "echo-server.traefik-traefik.tail22829.ts.net"
+          - host: &host "echo-server.private.tail22829.ts.net"
             paths:
               - path: /
-                pathType: Prefix
+                servicePort: 8080
         tls:
-          # certResolver: myresolver
           - hosts:
               - *host
 
