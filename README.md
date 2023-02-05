@@ -65,3 +65,17 @@
         <td>Simplistic startpage for Kubernetes services</td>
     </tr>
 </table>
+
+## Fix tailscale networking
+
+Run on host:
+
+```
+echo 'net.ipv4.ip_forward = 1' | sudo tee -a /etc/sysctl.conf
+echo 'net.ipv6.conf.all.forwarding = 1' | sudo tee -a /etc/sysctl.conf
+sudo sysctl -p /etc/sysctl.conf
+
+sudo iptables -A FORWARD --in-interface tailscale0 -j ACCEPT
+sudo iptables -A FORWARD --out-interface tailscale0 -j ACCEPT
+sudo iptables -t nat -A POSTROUTING --source 100.64.0.0/10 --out-interface wlan0 -j MASQUERADE
+```
